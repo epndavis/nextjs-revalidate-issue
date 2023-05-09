@@ -1,9 +1,8 @@
-import { getData } from "@/lib/api";
-import { cache } from "react"
+import { cache } from 'react'
 
 const getGraphql = cache(async () => {
   const requestBody = {
-    query: `{ now(id: "1") }`,
+    query: `{ now(id: "2") }`,
   }
 
   const res = await fetch('https://main--time-pav6zq.apollographos.net/graphql', {
@@ -26,11 +25,10 @@ const getGraphql = cache(async () => {
 })
 
 export default async function Home() {
-  const [API, GRAPHQL, GRAPHQL2] = await Promise.all([getData(), getGraphql(), getGraphql()])
+  const [GRAPHQL, GRAPHQL2] = await Promise.all([getGraphql(), getGraphql()])
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="border border-red-600">{API.datetime}</div>
       <div className="border border-blue-600">{GRAPHQL.data.now}</div>
       <div className="border border-green-600">{GRAPHQL2.data.now}</div>
     </main>
