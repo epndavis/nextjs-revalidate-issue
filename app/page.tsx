@@ -1,14 +1,20 @@
 import { getData } from '@/lib/api'
-import { getGraphql } from '@/lib/graphql'
+import { getDynamicGraphql } from '@/lib/graphql'
+import { Metadata } from 'next';
+
+export async function generateMetadata(): Promise<Metadata> {
+  const API = await getData();
+
+  return { title: API.datetime };
+}
 
 export default async function Home() {
-  const [API, GRAPHQL, GRAPHQL2] = await Promise.all([getData(), getGraphql(), getGraphql()])
+  const [API, GRAPHQL] = await Promise.all([getData(), getDynamicGraphql('1')])
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
       <div className="border border-red-600">{API.datetime}</div>
       <div className="border border-blue-600">{GRAPHQL.data.now}</div>
-      <div className="border border-green-600">{GRAPHQL2.data.now}</div>
     </main>
   )
 }

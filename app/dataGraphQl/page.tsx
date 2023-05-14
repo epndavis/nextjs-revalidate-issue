@@ -1,7 +1,7 @@
-import { getGraphql } from '@/lib/graphql'
+import { getCachedGraphql } from '@/lib/graphql'
 
 export default async function Home() {
-  const [GRAPHQL, GRAPHQL2] = await Promise.all([getGraphql(), getGraphql()])
+  const [GRAPHQL, GRAPHQL2] = await Promise.all([getCachedGraphql(), getCachedGraphql()])
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
